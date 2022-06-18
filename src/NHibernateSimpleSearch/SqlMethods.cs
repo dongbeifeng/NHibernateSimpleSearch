@@ -14,7 +14,7 @@
 
 using System.Text.RegularExpressions;
 
-namespace NHibernateSimpleSearch;
+namespace NHibernateUtils;
 
 /// <summary>
 /// 代替 <see cref="NHibernate.Linq.SqlMethods.Like(string, string)"/>，可以为在内存中运行的查询提供简单的模糊查找功能。

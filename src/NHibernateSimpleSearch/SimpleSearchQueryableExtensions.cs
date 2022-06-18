@@ -20,7 +20,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 
-namespace NHibernateSimpleSearch;
+namespace NHibernateUtils;
 
 
 /// <summary>
@@ -31,9 +31,9 @@ public static class SimpleSearchQueryableExtensions
     /// <summary>
     /// 按照约定使用列表参数对象在查询上筛选。
     /// </summary>
-    /// <typeparam name="T">目标类型</typeparam>
-    /// <param name="q">查询对象，不必是 NHibernate 查询对象</param>
-    /// <param name="searchArgs">查询参数</param>
+    /// <typeparam name="T">数据源中的数据类型。</typeparam>
+    /// <param name="q">查询对象，不必是 NHibernate 查询对象。</param>
+    /// <param name="searchArgs">查询参数对象。</param>
     /// <returns></returns>
     public static IQueryable<T> Filter<T>(this IQueryable<T> q, object searchArgs)
     {

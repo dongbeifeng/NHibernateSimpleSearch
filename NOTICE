@@ -1,0 +1,24 @@
+coverlet.collector
+(https://github.com/coverlet-coverage/coverlet)
+© tonerdo
+
+NHibernate
+(https://nhibernate.info/)
+© NHibernate Community 2020
+
+NSubstitue
+(https://nsubstitute.github.io/)
+© Anthony Egerton,David Tchepak,Alexandr Nikitin,Alex Povar
+
+
+System.Linq.Dynamic.Core
+(https://dynamic-linq.net/)
+© ZZZ Projects,Stef Heyenrath,Microsoft,Scott Guthrie,King Wilder,Nathan Arnott
+
+xunit
+(https://github.com/xunit/xunit)
+© James Newkirk,Brad Wilson
+
+xunit.runner.visualstudio
+(https://github.com/xunit/visualstudio.xunit)
+© .NET Foundation and Contributors

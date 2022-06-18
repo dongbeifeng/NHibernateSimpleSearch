@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\NHibernateSimpleSearch\NHibernateSimpleSearch.csproj" />
+    <ProjectReference Include="..\..\src\NHibernateSimpleSearch\NHibernateUtils.csproj" />
   </ItemGroup>
 
 </Project>

@@ -14,12 +14,7 @@
 
 namespace NHibernateUtils;
 
-/// <summary>
-/// 表示分页的列表。页码基于 1。
-/// </summary>
-/// <typeparam name="T"></typeparam>
-/// <param name="CurrentPage">当前页码。</param>
-/// <param name="List">本页数据。</param>
-/// <param name="PageSize">页大小。</param>
-/// <param name="Total">记录总数。</param>
-public record PagedList<T>(List<T> List, int CurrentPage, int PageSize, int Total);
+[AttributeUsage(AttributeTargets.Property, Inherited = true, AllowMultiple = false)]
+public sealed class ModificationUserAttribute : Attribute
+{
+}
