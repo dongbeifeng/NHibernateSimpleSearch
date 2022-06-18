@@ -164,7 +164,7 @@ public class SimpleSearchExtensionsTests
     #endregion
 
     [Fact]
-    public void TestAuto()
+    public void Filter_Auto()
     {
         var list = new List<Student>
             {
@@ -202,7 +202,7 @@ public class SimpleSearchExtensionsTests
 
 
     [Fact]
-    public void TestEqual()
+    public void Filter_Equal()
     {
         var list = new List<Student>
             {
@@ -240,7 +240,7 @@ public class SimpleSearchExtensionsTests
 
 
     [Fact]
-    public void TestNotEqual()
+    public void Filter_NotEqual()
     {
         var list = new List<Student>
             {
@@ -262,7 +262,7 @@ public class SimpleSearchExtensionsTests
     }
 
     [Fact]
-    public void TestLike()
+    public void Filter_Like()
     {
         var list = new List<Student>
             {
@@ -325,7 +325,7 @@ public class SimpleSearchExtensionsTests
     }
 
     [Fact]
-    public void TestLike_NavigationProperty()
+    public void Filter_Like_NavigationProperty()
     {
         var list = new List<Student>
             {
@@ -347,7 +347,7 @@ public class SimpleSearchExtensionsTests
     }
 
     [Fact]
-    public void TestNotLike()
+    public void Filter_NotLike()
     {
         var list = new List<Student>
             {
@@ -368,7 +368,7 @@ public class SimpleSearchExtensionsTests
     }
 
     [Fact]
-    public void TestNotLike_NavigationProperty()
+    public void Filter_NotLike_NavigationProperty()
     {
         var list = new List<Student>
             {
@@ -389,7 +389,7 @@ public class SimpleSearchExtensionsTests
     }
 
     [Fact]
-    public void TestGreaterThan()
+    public void Filter_GreaterThan()
     {
         var list = new List<Student>
             {
@@ -412,7 +412,7 @@ public class SimpleSearchExtensionsTests
     }
 
     [Fact]
-    public void TestGreaterThanOrEqual()
+    public void Filter_GreaterThanOrEqual()
     {
         var list = new List<Student>
             {
@@ -435,7 +435,7 @@ public class SimpleSearchExtensionsTests
     }
 
     [Fact]
-    public void TestLessThan()
+    public void Filter_LessThan()
     {
         var list = new List<Student>
             {
@@ -458,7 +458,7 @@ public class SimpleSearchExtensionsTests
     }
 
     [Fact]
-    public void TestLessThanOrEqual()
+    public void Filter_LessThanOrEqual()
     {
         var list = new List<Student>
             {
@@ -481,7 +481,7 @@ public class SimpleSearchExtensionsTests
     }
 
     [Fact]
-    public void TestIn()
+    public void Filter_In()
     {
         var list = new List<Student>
             {
@@ -504,7 +504,7 @@ public class SimpleSearchExtensionsTests
     }
 
     [Fact]
-    public void TestIn_忽略空白字符串和NULL()
+    public void Filter_In_忽略空白字符串和NULL()
     {
         var list = new List<Student>
             {
@@ -528,7 +528,7 @@ public class SimpleSearchExtensionsTests
     }
 
     [Fact]
-    public void TestNotIn()
+    public void Filter_NotIn()
     {
         var list = new List<Student>
             {
@@ -551,7 +551,7 @@ public class SimpleSearchExtensionsTests
     }
 
     [Fact]
-    public void TestExpression()
+    public void Filter_Expression()
     {
         var list = new List<Student>
             {
@@ -574,7 +574,7 @@ public class SimpleSearchExtensionsTests
     }
 
     [Fact]
-    public void TestExpression2()
+    public void Filter_Expression2()
     {
         var list = new List<Student>
             {
@@ -596,7 +596,7 @@ public class SimpleSearchExtensionsTests
     }
 
     [Fact]
-    public void TestExpression3()
+    public void Filter_Expression3()
     {
         var list = new List<Student>
             {
@@ -621,7 +621,7 @@ public class SimpleSearchExtensionsTests
 
 
     [Fact]
-    public void FilterMethodOnSearchArgsShouldBeInvoked()
+    public void Filter_FilterMethodOnSearchArgsObjectShouldBeInvoked()
     {
         var list = new List<Student>
             {
@@ -639,4 +639,27 @@ public class SimpleSearchExtensionsTests
         Assert.Equal("Dog", list1[0].StudentName);
 
     }
+
+    [Fact]
+    public void GetSearchArg_Equal()
+    {
+        Assert.Equal(2, SimpleSearchExtensions.GetSearchArg(typeof(EqualArgs).GetProperty(nameof(EqualArgs.No)), new EqualArgs { No = 2 }));
+        Assert.Null(SimpleSearchExtensions.GetSearchArg(typeof(EqualArgs).GetProperty(nameof(EqualArgs.StudentName)), new EqualArgs { StudentName = "  " }));
+        Assert.Equal("b", SimpleSearchExtensions.GetSearchArg(typeof(EqualArgs).GetProperty(nameof(EqualArgs.StudentName)), new EqualArgs { StudentName = " b  " }));
+        Assert.Equal("b?", SimpleSearchExtensions.GetSearchArg(typeof(EqualArgs).GetProperty(nameof(EqualArgs.StudentName)), new EqualArgs { StudentName = " b?  " }));
+        Assert.Equal("b* C", SimpleSearchExtensions.GetSearchArg(typeof(EqualArgs).GetProperty(nameof(EqualArgs.StudentName)), new EqualArgs { StudentName = " b* C " }));
+    }
+
+
+    [Fact]
+    public void GetSearchArg_Auto()
+    {
+        Assert.Equal(2, SimpleSearchExtensions.GetSearchArg(typeof(AutoArgs).GetProperty(nameof(AutoArgs.No)), new AutoArgs { No = 2 }));
+        Assert.Null(SimpleSearchExtensions.GetSearchArg(typeof(AutoArgs).GetProperty(nameof(AutoArgs.StudentName)), new AutoArgs { StudentName = "  " }));
+        Assert.Equal("%b%", SimpleSearchExtensions.GetSearchArg(typeof(AutoArgs).GetProperty(nameof(AutoArgs.StudentName)), new AutoArgs { StudentName = " b  " }));
+        Assert.Equal("b_", SimpleSearchExtensions.GetSearchArg(typeof(AutoArgs).GetProperty(nameof(AutoArgs.StudentName)), new AutoArgs { StudentName = " b?  " }));
+        Assert.Equal("b% C", SimpleSearchExtensions.GetSearchArg(typeof(AutoArgs).GetProperty(nameof(AutoArgs.StudentName)), new AutoArgs { StudentName = " b* C " }));
+
+    }
+
 }

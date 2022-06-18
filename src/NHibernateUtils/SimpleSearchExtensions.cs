@@ -251,7 +251,7 @@ public static class SimpleSearchExtensions
         return nhQuery.ToPagedListAsync(currentPage ?? 1, pageSize ?? 10);
     }
 
-    static object? GetSearchArg(PropertyInfo prop, object searchArgs)
+    internal static object? GetSearchArg(PropertyInfo prop, object searchArgs)
     {
         object? val = prop.GetValue(searchArgs);
 
