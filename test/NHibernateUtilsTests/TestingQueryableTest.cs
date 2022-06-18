@@ -38,7 +38,7 @@ public class TestingQueryableTest
             new Foo { Bar = "Bar3", Baz = "Baz3" },
         };
 
-        TestingQueryable<Foo> q = new TestingQueryable<Foo>(list.AsQueryable());
+        TestingQueryable<Foo> q = new TestingQueryable<Foo>(list);
 
         var foo = await q.Where(x => x.Bar == "Bar2").SingleOrDefaultAsync();
         Assert.Same(list[1], foo);
@@ -54,7 +54,7 @@ public class TestingQueryableTest
             new Foo { Bar = "Bar3", Baz = "Baz3" },
         };
 
-        TestingQueryable<Foo> q = new TestingQueryable<Foo>(list.AsQueryable());
+        TestingQueryable<Foo> q = new TestingQueryable<Foo>(list);
 
         var foo = q.Where(x => x.Bar == "Bar2").SingleOrDefault();
         Assert.Same(list[1], foo);
@@ -71,7 +71,7 @@ public class TestingQueryableTest
             new Foo { Bar = "Bar3", Baz = "Baz3" },
         };
 
-        TestingQueryable<Foo> q = new TestingQueryable<Foo>(list.AsQueryable());
+        TestingQueryable<Foo> q = new TestingQueryable<Foo>(list);
 
         var foos = await q.Where(x => x.Bar == "Bar2").ToListAsync();
         Assert.Single(foos);
@@ -89,7 +89,7 @@ public class TestingQueryableTest
             new Foo { Bar = "Bar3", Baz = "Baz3" },
         };
 
-        TestingQueryable<Foo> q = new TestingQueryable<Foo>(list.AsQueryable());
+        TestingQueryable<Foo> q = new TestingQueryable<Foo>(list);
 
         var foos = q.Where(x => x.Bar == "Bar2").ToList();
         Assert.Single(foos);
