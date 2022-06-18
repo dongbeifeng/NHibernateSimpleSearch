@@ -18,7 +18,7 @@ using Xunit;
 
 namespace NHibernateUtils.Tests;
 
-public class AuditInterceptorTest
+public class AuditingInterceptorTest
 {
     class Foo
     {
@@ -56,7 +56,7 @@ public class AuditInterceptorTest
     [Fact]
     public void OnFlushDirtyTest()
     {
-        AuditInterceptor interceptor = new AuditInterceptor(new GenericPrincipal(new GenericIdentity("wangjianjun"), null));
+        AuditingInterceptor interceptor = new AuditingInterceptor(new GenericPrincipal(new GenericIdentity("wangjianjun"), null));
 
         string[] propertiesNames = new[] { "ctime", "mtime", "cuser", "muser", "Baz" };
         IType[] types = new IType[] { TypeFactory.GetDateTimeType(4), TypeFactory.GetDateTimeType(4), TypeFactory.GetStringType(10), TypeFactory.GetStringType(10), TypeFactory.GetStringType(10) };
@@ -109,7 +109,7 @@ public class AuditInterceptorTest
     [Fact]
     public void OnSaveTest()
     {
-        AuditInterceptor interceptor = new AuditInterceptor(new GenericPrincipal(new GenericIdentity("wangjianjun"), null));
+        AuditingInterceptor interceptor = new AuditingInterceptor(new GenericPrincipal(new GenericIdentity("wangjianjun"), null));
         string[] propertiesNames = new[] { "ctime", "mtime", "cuser", "muser", "Baz" };
         IType[] types = new IType[] { TypeFactory.GetDateTimeType(4), TypeFactory.GetDateTimeType(4), TypeFactory.GetStringType(10), TypeFactory.GetStringType(10), TypeFactory.GetStringType(10) };
 

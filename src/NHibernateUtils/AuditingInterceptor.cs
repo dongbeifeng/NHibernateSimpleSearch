@@ -19,11 +19,11 @@ using System.Security.Principal;
 
 namespace NHibernateUtils;
 
-public class AuditInterceptor : EmptyInterceptor
+public class AuditingInterceptor : EmptyInterceptor
 {
     readonly IPrincipal? _principal;
 
-    public AuditInterceptor(IPrincipal? principal)
+    public AuditingInterceptor(IPrincipal? principal)
     {
         _principal = principal;
     }
