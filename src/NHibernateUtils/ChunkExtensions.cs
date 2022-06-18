@@ -16,7 +16,7 @@ using NHibernate.Linq;
 
 namespace NHibernateUtils;
 
-public static class ChunkQueryableExtensions
+public static class ChunkExtensions
 {
     /// <summary>
     /// 将数据分块。

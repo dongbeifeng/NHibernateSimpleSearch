@@ -17,7 +17,7 @@ using Xunit;
 
 namespace NHibernateUtils.Tests;
 
-public class SimpleSearchQueryableExtensionsTests
+public class SimpleSearchExtensionsTests
 {
     #region nested classes
 

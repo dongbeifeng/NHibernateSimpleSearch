@@ -16,7 +16,7 @@ using Xunit;
 
 namespace NHibernateUtils.Tests;
 
-public class ChunkQueryableExtensionsTest
+public class ChunkExtensionsTest
 {
     class Foo
     {

@@ -26,7 +26,7 @@ namespace NHibernateUtils;
 /// <summary>
 /// 为使用 <see cref="SearchArgAttribute"/> 标记的类提供动态查询方法。
 /// </summary>
-public static class SimpleSearchQueryableExtensions
+public static class SimpleSearchExtensions
 {
     /// <summary>
     /// 按照约定使用列表参数对象在查询上筛选。
