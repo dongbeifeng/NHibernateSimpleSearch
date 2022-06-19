@@ -18,7 +18,7 @@ using NHibernate.Event;
 namespace NHibernateUtils;
 
 /// <summary>
-/// 确保数据库操作在事务中进行。
+/// 检查当前是否有活动的事务，如果没有，则抛出 <see cref="NoTransactionException"/>。
 /// </summary>
 public class CheckTransactionListener : IPreInsertEventListener, IPreDeleteEventListener, IPreUpdateEventListener, IPreLoadEventListener
 {
@@ -74,7 +74,7 @@ public class CheckTransactionListener : IPreInsertEventListener, IPreDeleteEvent
         var tx = session.GetCurrentTransaction();
         if (tx is null || tx.IsActive == false)
         {
-            throw new Exception("未打开事务。");
+            throw new NoTransactionException();
         }
     }
 }
