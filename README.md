@@ -171,6 +171,10 @@ public interface IModelMapperConfigurator
 
 ## TestingQueryable
 
-This is a unit testing tool allowing mock IQueryable<T> returned from `ISession.Query<T>` method.
+This is a unit testing tool allowing mock IQueryable<T> returned from `ISession.Query<T>` method. The source code in this file is from：
+
+* https://stackoverflow.com/questions/61408448/how-to-mock-nhibernate-tolistasync-in-unit-test-with-moq
+* https://github.com/rgvlee/StackOverflow/blob/master/Question61408448/Query.linq
+
 
 
