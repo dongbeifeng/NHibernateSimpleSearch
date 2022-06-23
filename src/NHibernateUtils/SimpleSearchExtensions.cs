@@ -37,7 +37,7 @@ public static class SimpleSearchExtensions
     /// <returns></returns>
     public static IQueryable<T> Filter<T>(this IQueryable<T> q, object searchArgs)
     {
-        if (searchArgs == null)
+        if (searchArgs is null)
         {
             throw new ArgumentNullException(nameof(searchArgs));
         }
@@ -51,7 +51,7 @@ public static class SimpleSearchExtensions
             && filterMethodInfo.ReturnType == typeof(IQueryable<T>))
         {
             q = (IQueryable<T>)filterMethodInfo.Invoke(searchArgs, new[] { q })!;
-            if (q == null)
+            if (q is null)
             {
                 throw new InvalidOperationException("Filter 方法不能返回 null。");
             }
@@ -291,7 +291,7 @@ public static class SimpleSearchExtensions
 
     static string? GetOrderByClause(OrderedDictionary? sort)
     {
-        if (sort == null || sort.Count == 0)
+        if (sort is null || sort.Count == 0)
         {
             return null;
         }
@@ -316,7 +316,7 @@ public static class SimpleSearchExtensions
     {
         // 要得到的表达式：x => SqlMethods.Like(x.Foo.StringField, "a%")
         MethodInfo? mi = typeof(SqlMethods).GetMethod("Like", new Type[] { typeof(string), typeof(string) });
-        if (mi == null)
+        if (mi is null)
         {
             throw new InvalidOperationException();
         }

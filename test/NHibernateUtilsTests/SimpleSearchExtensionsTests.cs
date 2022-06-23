@@ -125,7 +125,7 @@ public class SimpleSearchExtensionsTests
         {
             get
             {
-                if (StudentName == null)
+                if (StudentName is null)
                 {
                     return null;
                 }

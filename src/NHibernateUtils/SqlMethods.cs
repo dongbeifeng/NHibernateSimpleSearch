@@ -29,7 +29,7 @@ public static class SqlMethods
     /// <returns></returns>
     public static bool Like(this string? input, string pattern)
     {
-        if (input == null)
+        if (input is null)
         {
             return false;
         }

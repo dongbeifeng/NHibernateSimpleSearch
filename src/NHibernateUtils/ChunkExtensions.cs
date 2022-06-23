@@ -27,7 +27,7 @@ public static class ChunkExtensions
     /// <returns></returns>
     public static async IAsyncEnumerable<List<TSource>> ToChunksAsync<TSource>(this IQueryable<TSource> nhQuery, int chunkSize)
     {
-        if (nhQuery == null)
+        if (nhQuery is null)
         {
             throw new ArgumentNullException(nameof(nhQuery));
         }
@@ -84,7 +84,7 @@ public static class ChunkExtensions
     /// <returns></returns>
     public static async IAsyncEnumerable<TSource> LoadInChunksAsync<TSource>(this IQueryable<TSource> nhQuery, int chunkSize)
     {
-        if (nhQuery == null)
+        if (nhQuery is null)
         {
             throw new ArgumentNullException(nameof(nhQuery));
         }
