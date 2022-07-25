@@ -94,6 +94,63 @@ public class TestingQueryableTest
         var foos = q.Where(x => x.Bar == "Bar2").ToList();
         Assert.Single(foos);
         Assert.Same(list[1], foos.Single());
+    }
+
+    [Fact]
+    public void ToList_KeepsOrder()
+    {
+        List<Foo> list = new List<Foo>
+        {
+            new Foo { Bar = "Bar3", Baz = "Baz3" },
+            new Foo { Bar = "Bar1", Baz = "Baz1" },
+            new Foo { Bar = "Bar2", Baz = "Baz2" },
+        };
+
+        TestingQueryable<Foo> q = new TestingQueryable<Foo>(list);
+
+        var foos = q.ToList();
+        Assert.Same(list[0], foos[0]);
+        Assert.Same(list[1], foos[1]);
+        Assert.Same(list[2], foos[2]);
+    }
+
+
+    [Fact]
+    public void OrderByTest()
+    {
+        List<Foo> list = new List<Foo>
+        {
+            new Foo { Bar = "Bar2", Baz = "Baz2" },
+            new Foo { Bar = "Bar1", Baz = "Baz1" },
+            new Foo { Bar = "Bar3", Baz = "Baz3" },
+        };
+        
+        TestingQueryable<Foo> q = new TestingQueryable<Foo>(list);
+
+        var list2 = q.OrderBy(x => x.Bar).ToList();
+        Assert.Equal("Bar1", list2[0].Bar);
+        Assert.Equal("Bar2", list2[1].Bar);
+        Assert.Equal("Bar3", list2[2].Bar);
+
+    }
+
+
+    [Fact]
+    public void OrderByDescendingTest()
+    {
+        List<Foo> list = new List<Foo>
+        {
+            new Foo { Bar = "Bar2", Baz = "Baz2" },
+            new Foo { Bar = "Bar1", Baz = "Baz1" },
+            new Foo { Bar = "Bar3", Baz = "Baz3" },
+        };
+
+        TestingQueryable<Foo> q = new TestingQueryable<Foo>(list);
+
+        var list2 = q.OrderByDescending(x => x.Bar).ToList();
+        Assert.Equal("Bar3", list2[0].Bar);
+        Assert.Equal("Bar2", list2[1].Bar);
+        Assert.Equal("Bar1", list2[2].Bar);
 
     }
 

@@ -11,7 +11,7 @@ namespace NHibernateUtils;
 /// Implements <see cref="IQueryable<T>"/> interface for unit testing purpose.
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public class TestingQueryable<T> : IQueryable<T>
+public class TestingQueryable<T> : IQueryable<T>, IOrderedQueryable<T>
 {
     private readonly IQueryable<T> _queryable;
 
