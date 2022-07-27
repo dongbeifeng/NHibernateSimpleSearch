@@ -23,6 +23,7 @@ namespace NHibernateUtils;
 /// 如果属性或多对一关联上标记了 <see cref="RequiredAttribute"/>，则数据库字段不可为 null；
 /// 如果属性是值类型且不是可空类型，则数据库字段不可为 null；
 /// </summary>
+[Obsolete("换用 DataAnnotationsModelMapperConfigurator。")]
 public class NotNullModelMapperConfigurator : IModelMapperConfigurator
 {
     public void Configure(ModelMapper mapper)

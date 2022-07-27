@@ -20,41 +20,34 @@ using System.ComponentModel.DataAnnotations;
 
 namespace NHibernateUtils.Tests;
 
-public class NotNullModelMapperConfiguratorTest
+public class DataAnnotationsModelMapperConfiguratorTest
 {
     class Foo
     {
-        [Required]
-        public Foo? Rel1 { get; set; }
-
-        public Foo? Rel2 { get; set; }
 
         public int Prop1 { get; set; }
 
         public int? Prop2 { get; set; }
 
         [Required]
+        [MaxLength(30)]
         public string? Prop3 { get; set; }
 
         public string? Prop4 { get; set; }
 
+        [Required]
+        public Foo? Prop5 { get; set; }
+
+        public Foo? Prop6 { get; set; }
     }
 
-
-    [Fact]
-    public void IsValueTypeAndNotNullableTest()
-    {
-        Assert.True(NotNullModelMapperConfigurator.IsValueTypeAndNotNullable(typeof(int)));
-        Assert.False(NotNullModelMapperConfigurator.IsValueTypeAndNotNullable(typeof(int?)));
-        Assert.False(NotNullModelMapperConfigurator.IsValueTypeAndNotNullable(typeof(string)));
-    }
 
     [Theory]
-    [InlineData("Rel1", true)]
-    [InlineData("Rel2", false)]
+    [InlineData("Prop5", true)]
+    [InlineData("Prop6", false)]
     public void HandleBeforeMapManyToOneTest(string propName, bool notNullable)
     {
-        NotNullModelMapperConfigurator sut = new NotNullModelMapperConfigurator();
+        DataAnnotationsModelMapperConfigurator sut = new DataAnnotationsModelMapperConfigurator();
 
         var map = For<IManyToOneMapper>();
         PropertyPath member = new PropertyPath(null, typeof(Foo).GetProperty(propName));
@@ -70,18 +63,18 @@ public class NotNullModelMapperConfiguratorTest
     }
 
     [Theory]
-    [InlineData("Prop1", true)]
-    [InlineData("Prop2", false)]
-    [InlineData("Prop3", true)]
-    [InlineData("Prop4", false)]
-    public void HandleHandleBeforeMapPropertyTest(string propName, bool notNullable)
+    [InlineData("Prop1", true, null)]
+    [InlineData("Prop2", false, null)]
+    [InlineData("Prop3", true, 30)]
+    [InlineData("Prop4", false, null)]
+    public void HandleHandleBeforeMapPropertyTest(string propName, bool expected_notnull, int? expected_length)
     {
-        NotNullModelMapperConfigurator sut = new NotNullModelMapperConfigurator();
+        DataAnnotationsModelMapperConfigurator sut = new DataAnnotationsModelMapperConfigurator();
 
         var map = For<IPropertyMapper>();
         PropertyPath member = new PropertyPath(null, typeof(Foo).GetProperty(propName));
         sut.HandleBeforeMapProperty(For<IModelInspector>(), member, map);
-        if (notNullable)
+        if (expected_notnull)
         {
             map.Received().NotNullable(true);
         }
@@ -89,6 +82,17 @@ public class NotNullModelMapperConfiguratorTest
         {
             map.DidNotReceive().NotNullable(true);
         }
+
+        if (expected_length is not null)
+        {
+            map.Received().Length(expected_length.Value);
+        }
+        else
+        {
+            map.DidNotReceive().Length(Arg.Any<int>());
+        }
     }
+
+
 
 }

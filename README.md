@@ -115,8 +115,11 @@ public interface IModelMapperConfigurator
 
 ```
 
-`NotNullModelMapperConfigurator` maps properties of value type or decorated with `RequiredAttribute` as `not null` , 
-`LengthModelMapperConfigurator` specifies the columns' length if there is a `MaxLengthAttribute` on the property.
+`DataAnnotationsModelMapperConfigurator` applies conventions on before mapping columns:
+
+* if a property is a value type and not a Nullable<T>, then the column is `not null`
+* if a property is decorated with a `RequiredAttribute`, then the column is `not null`
+* if a property is decorated with a `MaxLengthAttribute`, then use it's value as the column's length 
 
 ## SimpleSearchExtensions
 

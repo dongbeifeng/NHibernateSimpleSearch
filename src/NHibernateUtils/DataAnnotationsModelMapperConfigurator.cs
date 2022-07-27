@@ -20,24 +20,51 @@ namespace NHibernateUtils;
 
 /// <summary>
 /// 实现以下约定：
+/// 如果属性是值类型且不是可空类型，则将数据库字段指定为 not null；
+/// 如果属性或多对一关联上标记了 <see cref="RequiredAttribute"/>，则将数据库字段指定为 not null；
 /// 如果属性上标记了 <see cref="MaxLengthAttribute"/>，则用它指定数据库字段的长度；
 /// </summary>
-[Obsolete("换用 DataAnnotationsModelMapperConfigurator。")]
-public class LengthModelMapperConfigurator : IModelMapperConfigurator
+public class DataAnnotationsModelMapperConfigurator : IModelMapperConfigurator
 {
     public void Configure(ModelMapper mapper)
     {
         // 属性
         mapper.BeforeMapProperty += HandleBeforeMapProperty;
+        // 多对一
+        mapper.BeforeMapManyToOne += HandleBeforeMapManyToOne;
     }
 
     internal void HandleBeforeMapProperty(IModelInspector modelInspector, PropertyPath member, IPropertyMapper propertyCustomizer)
     {
+        // 不可空值类型对应的列也不可空
+        if (member.LocalMember is PropertyInfo p)
+        {
+            if (MapperUtils.IsValueTypeAndNotNullable(p.PropertyType))
+            {
+                propertyCustomizer.NotNullable(true);
+            }
+        }
+
+        // RequiredAttribute 列不可空
+        if (member.LocalMember.IsDefined(typeof(RequiredAttribute), true))
+        {
+            propertyCustomizer.NotNullable(true);
+        }
+
         // 长度
         var attr = member.LocalMember.GetCustomAttribute<MaxLengthAttribute>(true);
         if (attr != null)
         {
             propertyCustomizer.Length(attr.Length);
+        }
+    }
+
+    internal void HandleBeforeMapManyToOne(IModelInspector modelInspector, PropertyPath member, IManyToOneMapper propertyCustomizer)
+    {
+        // 应用 RequiredAttribute 列不可空
+        if (member.LocalMember.IsDefined(typeof(RequiredAttribute), true))
+        {
+            propertyCustomizer.NotNullable(true);
         }
     }
 }

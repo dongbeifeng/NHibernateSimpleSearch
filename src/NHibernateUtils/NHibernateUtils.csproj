@@ -9,7 +9,8 @@
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageProjectUrl>https://github.com/dongbeifeng/NHibernateUtils</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <Version>1.0.1</Version>
+    <Version>1.1.1</Version>
+    <PackageReleaseNotes>添加方便自定义类型映射的实用函数。</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
